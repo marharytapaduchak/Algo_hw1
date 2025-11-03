@@ -13,7 +13,6 @@
 #include <locale>
 #include <codecvt>
 
-
 using std::filesystem::current_path;
 using std::filesystem::exists;
 using std::filesystem::path;
@@ -512,13 +511,19 @@ struct BenchRow {
 
 void append_result_csv(const BenchRow& r, const string& path = "bench_ops.csv")
 {
-    ofstream out(path, ios::app);
-    if (!out.is_open())
+    bool need_header = false;
     {
+        ifstream test(path);
+        need_header = !test.good() || (test.peek() == ifstream::traits_type::eof());
+    }
+    ofstream out(path, ios::app);
+    if (!out.is_open()) {
         cout << "Cannot open " << path << " for append\n";
         return;
     }
-
+    if (need_header) {
+        out << "dataset,n,variant,ops,rss_mb\n";
+    }
     out << r.dataset << ','
         << r.n << ','
         << r.variant << ','
@@ -528,49 +533,49 @@ void append_result_csv(const BenchRow& r, const string& path = "bench_ops.csv")
 
 
 int main() {
-    vector<string> filenames = {"students-2_100.csv", "students-2_1000.csv", "students-2_10000.csv", "students-2.csv"};
-    for (const string& filename : filenames)
-    {
-        vector<Student> data = read_csv(filename);
-        if (data.empty()) {
-            cout << "Error: file is empty or not read: " << filename << endl;
-            continue;
-        }
-
-        vector<string> emails;
-        emails.reserve(data.size());
-        for (const Student& s : data) emails.push_back(s.m_email);
-
-        //V1
-        {
-            Student_V1 v1(data);
-            double rss_before = get_rss_mb(); (void)rss_before;
-            size_t ops = run_example(v1, emails);
-            double rss_after = get_rss_mb();
-            append_result_csv({filename, data.size(), "V1", ops, rss_after});
-            cout << "V1 " << filename << " ops=" << ops << " rss_mb=" << rss_after << "\n";
-        }
-
-        //V2
-        {
-            Student_V2 v2(data);
-            double rss_before = get_rss_mb(); (void)rss_before;
-            size_t ops = run_example(v2, emails);
-            double rss_after = get_rss_mb();
-            append_result_csv({filename, data.size(), "V2", ops, rss_after});
-            cout << "V2 " << filename << " ops=" << ops << " rss_mb=" << rss_after << "\n";
-        }
-
-        //V3
-        {
-            Student_V3 v3(data);
-            double rss_before = get_rss_mb(); (void)rss_before;
-            size_t ops = run_example(v3, emails);
-            double rss_after = get_rss_mb();
-            append_result_csv({filename, data.size(), "V3", ops, rss_after});
-            cout << "V3 " << filename << " ops=" << ops << " rss_mb=" << rss_after << "\n";
-        }
-    }
+    // vector<string> filenames = {"students-2_100.csv", "students-2_1000.csv", "students-2_10000.csv", "students-2.csv"};
+    // for (const string& filename : filenames)
+    // {
+    //     vector<Student> data = read_csv(filename);
+    //     if (data.empty()) {
+    //         cout << "Error: file is empty or not read: " << filename << endl;
+    //         continue;
+    //     }
+    //
+    //     vector<string> emails;
+    //     emails.reserve(data.size());
+    //     for (const Student& s : data) emails.push_back(s.m_email);
+    //
+    //     //V1
+    //     {
+    //         Student_V1 v1(data);
+    //         double rss_before = get_rss_mb(); (void)rss_before;
+    //         size_t ops = run_example(v1, emails);
+    //         double rss_after = get_rss_mb();
+    //         append_result_csv({filename, data.size(), "V1", ops, rss_after});
+    //         cout << "V1 " << filename << " ops=" << ops << " rss_mb=" << rss_after << "\n";
+    //     }
+    //
+    //     //V2
+    //     {
+    //         Student_V2 v2(data);
+    //         double rss_before = get_rss_mb(); (void)rss_before;
+    //         size_t ops = run_example(v2, emails);
+    //         double rss_after = get_rss_mb();
+    //         append_result_csv({filename, data.size(), "V2", ops, rss_after});
+    //         cout << "V2 " << filename << " ops=" << ops << " rss_mb=" << rss_after << "\n";
+    //     }
+    //
+    //     //V3
+    //     {
+    //         Student_V3 v3(data);
+    //         double rss_before = get_rss_mb(); (void)rss_before;
+    //         size_t ops = run_example(v3, emails);
+    //         double rss_after = get_rss_mb();
+    //         append_result_csv({filename, data.size(), "V3", ops, rss_after});
+    //         cout << "V3 " << filename << " ops=" << ops << " rss_mb=" << rss_after << "\n";
+    //     }
+    // }
 
 
     vector<Student> data = read_csv("students-2_1000.csv");
