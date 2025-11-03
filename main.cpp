@@ -573,7 +573,7 @@ int main() {
     }
 
 
-    vector<Student> data = read_csv("students-2_1000.csv");
+    vector<Student> data = read_csv("students-2.csv");
     if (data.empty()) {
         cout << "No data loaded. Abort.\n";
         return 1;
