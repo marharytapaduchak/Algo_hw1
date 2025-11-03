@@ -1,0 +1,50 @@
+[
+    {
+        "arguments": [
+            "/usr/bin/c++",
+            "-g",
+            "-std=gnu++20",
+            "-arch",
+            "arm64",
+            "-fcolor-diagnostics",
+            "-DPVS_STUDIO",
+            "-DPVS_VERSION_MAJOR=7",
+            "-DPVS_VERSION_MINOR=38",
+            "/Users/margopaduchak/Desktop/algos/untitled2/main.cpp"
+        ],
+        "dependencies": [],
+        "id": 2
+    },
+    {
+        "arguments": [
+            "/usr/bin/c++",
+            "-g",
+            "-std=gnu++20",
+            "-arch",
+            "arm64",
+            "-fcolor-diagnostics",
+            "-DPVS_STUDIO",
+            "-DPVS_VERSION_MAJOR=7",
+            "-DPVS_VERSION_MINOR=38",
+            "/Users/margopaduchak/CLionProjects/untitled2/main.cpp"
+        ],
+        "dependencies": [],
+        "id": 1
+    },
+    {
+        "arguments": [
+            "/usr/bin/c++",
+            "-g",
+            "-std=gnu++20",
+            "-arch",
+            "arm64",
+            "-fcolor-diagnostics",
+            "-DPVS_STUDIO",
+            "-DPVS_VERSION_MAJOR=7",
+            "-DPVS_VERSION_MINOR=38",
+            "/Users/margopaduchak/Desktop/algos/hw1/main.cpp"
+        ],
+        "dependencies": [],
+        "id": 3
+    }
+]
