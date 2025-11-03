@@ -1,15 +1,15 @@
-#include <iostream>        // cout, cin
-#include <string>          // std::string
-#include <vector>          // std::vector
-#include <unordered_map>   // std::unordered_map
-#include <set>             // std::set
-#include <queue>           // std::priority_queue
-#include <algorithm>       // sort, partial_sort
-#include <chrono>          // std::chrono::steady_clock
-#include <random>          // std::mt19937, std::uniform_int_distribution
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <set>
+#include <queue>
+#include <algorithm>
+#include <chrono>
+#include <random>
 #include <fstream>
 #include <sstream>
-#include <filesystem> // C++17
+#include <filesystem>
 #include <locale>
 #include <codecvt>
 
@@ -34,7 +34,6 @@ struct Student {
     string m_phone_number;
 };
 
-// ВАРІАНТ 1 — простий: vector + unordered_map + все рахуємо щоразу
 class Student_V1 {
 public:
     vector<Student> all;
@@ -102,7 +101,6 @@ public:
 };
 
 
-// 3. ВАРІАНТ 2 — підтримуємо все: set by rating + стату по групах
 class Student_V2 {
     struct RatingNode {
         Student* student;
@@ -165,10 +163,8 @@ public:
 
         Student* student = iter->second;
 
-        // видаляємо з рейтингів
         byRating.erase(RatingNode{student});
 
-        // оновлюємо групу
         auto group_iter = groups.find(student->m_group);
         if (group_iter != groups.end())
         {
@@ -200,7 +196,6 @@ public:
 };
 
 
-// 4. ВАРІАНТ 3 — vector + email->index + heap(100) + групи
 class Student_V3 {
     struct GroupAverage {
         double sum = 0.0;
@@ -584,7 +579,7 @@ int main() {
         return 1;
     }
 
-    // 1) std::sort
+    // 1) sort
     vector<Student> data_1 = sort_with_std(data);
     save_to_csv(data_1, "sort_1.csv");
 
