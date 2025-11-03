@@ -10,10 +10,10 @@
             "-DPVS_STUDIO",
             "-DPVS_VERSION_MAJOR=7",
             "-DPVS_VERSION_MINOR=38",
-            "/Users/margopaduchak/Desktop/algos/untitled2/main.cpp"
+            "/Users/margopaduchak/Desktop/algos/hw1/main.cpp"
         ],
         "dependencies": [],
-        "id": 2
+        "id": 3
     },
     {
         "arguments": [
@@ -42,9 +42,9 @@
             "-DPVS_STUDIO",
             "-DPVS_VERSION_MAJOR=7",
             "-DPVS_VERSION_MINOR=38",
-            "/Users/margopaduchak/Desktop/algos/hw1/main.cpp"
+            "/Users/margopaduchak/Desktop/algos/untitled2/main.cpp"
         ],
         "dependencies": [],
-        "id": 3
+        "id": 2
     }
 ]
